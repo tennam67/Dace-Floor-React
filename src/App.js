@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React from 'react'
+import './App.css';
+import Square from './components/Square';
+
+
+
+ class App extends React.Component {
+    // constructor (props){
+    //   super(props)
+    //   this.state = {
+    //     colors: []
+    //   }
+
+    // }
+
+    state = {
+          colors: []
+        };
+  
+   componentDidMount(){
+     setInterval(() => {
+      this.randomColor()
+     }, 1000);
+     
+   } 
+
+ randomColor = () => {
+   const newColors = [];
+   let color = "";
+   for(let i = 0; i < 25; i++){
+    color = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256)  + ',' + Math.floor(Math.random() * 256)  + ')';
+    newColors.push(color);
+   }
+   this.setState({
+    ...this.state, colors: newColors
+  }) 
+  }
+
+render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <main>
+        <div className="main">
+        {this.state.colors.map((color, index) => <Square key={index}  setColor = {color}/>) }
+        </div>
+    </main>
+  )
+}
+  
 }
 
+
+
 export default App;
+
+
+
+
+
+
+
+
+
